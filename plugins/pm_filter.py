@@ -77,7 +77,7 @@ async def pm_text(bot, message):
     content = message.text
     user = message.from_user.first_name
     user_id = message.from_user.id
-    if content.startswith("/") or content.startswith("#") or content.endsswith("bot"):
+    if content.startswith("/") or content.startswith("#") or content.endswith("bot"):
         return  # ignore commands and hashtags
     if PM_SEARCH == True:
         ai_search = True
