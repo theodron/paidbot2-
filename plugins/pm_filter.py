@@ -77,7 +77,7 @@ async def pm_text(bot, message):
     content = message.text
     user = message.from_user.first_name
     user_id = message.from_user.id
-    if content.startswith("/") or content.startswith("#") or content.endswith("bot"):
+    if content.startswith("/") or content.startswith("#") or content.containswith("bot"):
         return  # ignore commands and hashtags
     if PM_SEARCH == True:
         ai_search = True
@@ -2557,8 +2557,9 @@ async def auto_filter(client, name, msg, reply_msg, ai_search, spoll=False):
     curr_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
     if not spoll:
         message = msg
-        if message.text.startswith("/"): return  # ignore commands
-        if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
+        if message.text.startswith("/") or message.text.containswith("bot"):
+            return  # ignore commands
+        if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*@)", message.text):
             return
         if len(message.text) < 100:
             search = name
