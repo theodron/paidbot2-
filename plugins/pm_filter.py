@@ -56,7 +56,7 @@ async def give_filter(client, message):
                     ai_search = True
                     reply_msg = await message.reply_text(f"<b><i>Searching For {message.text} 🔍</i></b>")
                     await auto_filter(client, message.text, message, reply_msg, ai_search)
-                    await reply_msg.delete()
+           #         await reply_msg.delete()
             except KeyError:
                 grpid = await active_connection(str(message.from_user.id))
                 await save_group_settings(grpid, 'auto_ffilter', True)
@@ -65,7 +65,7 @@ async def give_filter(client, message):
                     ai_search = True
                     reply_msg = await message.reply_text(f"<b><i>Searching For {message.text} 🔍</i></b>")
                     await auto_filter(client, message.text, message, reply_msg, ai_search)
-                    await reply_msg.delete()
+       #             await reply_msg.delete()
     else: #a better logic to avoid repeated lines of code in auto_filter function
         search = message.text
         temp_files, temp_offset, total_results = await get_search_results(chat_id=message.chat.id, query=search.lower(), offset=0, filter=True)
@@ -2567,6 +2567,7 @@ async def auto_filter(client, name, msg, reply_msg, ai_search, spoll=False):
         if len(message.text) < 100:
             search = name
             search = search.lower()
+            m=await message.reply_text(f'**🔎 sᴇᴀʀᴄʜɪɴɢ** `{search}`')
             find = search.split(" ")
             search = ""
             removes = ["in","upload", "series", "full", "horror", "thriller", "mystery", "print", "file"]
@@ -2592,6 +2593,7 @@ async def auto_filter(client, name, msg, reply_msg, ai_search, spoll=False):
     else:
         message = msg.message.reply_to_message  # msg will be callback query
         search, files, offset, total_results = spoll
+        m=await message.reply_text(f'**🔎 sᴇᴀʀᴄʜɪɴɢ** `{search}`')
         settings = await get_settings(message.chat.id)
         await msg.message.delete()
     pre = 'filep' if settings['file_secure'] else 'file'
