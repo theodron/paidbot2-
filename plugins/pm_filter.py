@@ -55,7 +55,7 @@ async def give_filter(client, message):
                 if settings['auto_ffilter']:
                     ai_search = True
                     #reply_msg = await message.reply_text(f"<b><i>Searching For {message.text} 🔍</i></b>")
-                    await auto_filter(client, message.text, message, reply_msg, ai_search)
+                    await auto_filter(client, message.text, message, ai_search)
            #         await reply_msg.delete()
             except KeyError:
                 grpid = await active_connection(str(message.from_user.id))
@@ -64,7 +64,7 @@ async def give_filter(client, message):
                 if settings['auto_ffilter']:
                     ai_search = True
                     #reply_msg = await message.reply_text(f"<b><i>Searching For {message.text} 🔍</i></b>")
-                    await auto_filter(client, message.text, message, reply_msg, ai_search)
+                    await auto_filter(client, message.text, message, ai_search)
        #             await reply_msg.delete()
     else: #a better logic to avoid repeated lines of code in auto_filter function
         search = message.text
@@ -84,7 +84,7 @@ async def pm_text(bot, message):
     if PM_SEARCH == True:
         ai_search = True
         #reply_msg = await bot.send_message(message.from_user.id, f"<b><i>Searching For {content} 🔍</i></b>", reply_to_message_id=message.id)
-        await auto_filter(bot, content, message, reply_msg, ai_search)
+        await auto_filter(bot, content, message, ai_search)
         #await reply_msg.delete()
     
 @Client.on_callback_query(filters.regex(r"^next"))
