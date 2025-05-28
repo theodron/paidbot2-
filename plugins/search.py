@@ -6,16 +6,25 @@ from info import CHANNELS  # If needed for search
 
 app = TechVJBot
 
-# Message handler with filter for @ and links
-@app.on_message(filters.text & ~filters.command)
+# Command handler for /start
+@app.on_message(filters.command("start"))
+async def start_command(client, message):
+    await message.reply("Welcome to Bhuji Bot! I'm here to help you search for movies and series. Type a movie or series name to get started (e.g., 'Jawan 2023' or 'Loki S01').")
+
+# Message handler for text (excluding commands, ignoring @ and links)
+@app.on_message(filters.text)
 async def handle_message(client, message):
     query = message.text
 
-    # Check for usernames (@) or links
-    if re.search(r'@\w+|http[s]?://\S+|www\.\S+', query):
-        return  # Ignore the message if it contains @ or a link
+    # Skip if the message is a command (e.g., /start)
+    if query.startswith('/'):
+        return
 
-    # Existing logic (replace with your actual handler logic)
+    # Ignore messages with @ or links
+    if re.search(r'@\w+|http[s]?://\S+|www\.\S+', query):
+        return
+
+    # Existing search logic (replace with your actual logic)
     search_message = await message.reply(f"Searching For\n{query}")
     results = await search_in_index(query)  # Replace with your search function
     if results:
